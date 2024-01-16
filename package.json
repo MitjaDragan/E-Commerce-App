@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MitjaDragan/E-Commerce-App#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
     "pg": "^8.11.3"
   }

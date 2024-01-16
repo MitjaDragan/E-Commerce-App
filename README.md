@@ -30,8 +30,8 @@ Updating existing product details.
 Monitoring and managing user activities and orders.
 
 Technical Specifications
-Server-Side Framework: [Your choice of server-side framework]
-Database Management: [Your choice of DBMS - SQL/NoSQL]
+Server-Side Framework: Node,js
+Database Management: PostGreSQL
 API Documentation: Swagger UI for clear, interactive API documentation.
 Authentication/Authorization: Implement secure user authentication and authorization.
 
