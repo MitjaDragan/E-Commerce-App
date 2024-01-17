@@ -18,7 +18,11 @@
   "homepage": "https://github.com/MitjaDragan/E-Commerce-App#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bluebird": "^3.7.2",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "pg-promise": "^11.5.4",
+    "swagger-jsdoc": "^1.3.0"
   }
 }
