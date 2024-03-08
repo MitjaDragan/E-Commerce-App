@@ -30,6 +30,12 @@ var db = require('../queries');
  *         type: integer
  *       quantity:
  *         type: integer
+ *   CartItem:
+ *     properties:
+ *       product_id:
+ *         type: integer
+ *       quantity:
+ *         type: integer
  */ 
 
 /**
@@ -342,5 +348,93 @@ router.put('/orders/:order_id', db.updateOrder);
  *         description: Successfully deleted
  */
 router.delete('/orders/:order_id', db.removeOrder);
+
+/**
+ * @swagger
+ * /cart:
+ *   get:
+ *     tags:
+ *       - Cart
+ *     description: Returns all items in the cart
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of cart items
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/paths/definitions/CartItem'
+ */
+router.get('/cart', db.getAllItemsInCart);
+
+/**
+ * @swagger
+ * /cart:
+ *   post:
+ *     tags:
+ *       - Cart
+ *     description: Adds a new item to the cart
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: cartItem
+ *         description: Cart item object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/paths/definitions/CartItem'
+ *     responses:
+ *       200:
+ *         description: Successfully added to the cart
+ */
+router.post('/cart', db.addItemToCart);
+
+/**
+ * @swagger
+ * /cart/{cart_item_id}:
+ *   put:
+ *     tags: 
+ *       - Cart
+ *     description: Updates a cart item
+ *     produces: 
+ *       - application/json
+ *     parameters:
+ *       - name: cart_item_id
+ *         in: path
+ *         description: ID of the cart item to update
+ *         required: true
+ *         type: integer
+ *       - name: cartItem
+ *         in: body
+ *         description: Fields for the CartItem resource
+ *         schema:
+ *           $ref: '#/paths/definitions/CartItem'
+ *     responses:
+ *       200:
+ *         description: Successfully updated
+ */
+router.put('/cart/:cart_item_id', db.updateCartItem);
+
+/**
+ * @swagger
+ * /cart/{cart_item_id}:
+ *   delete:
+ *     tags:
+ *       - Cart
+ *     description: Deletes a cart item
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: cart_item_id
+ *         description: Cart item's id
+ *         in: path
+ *         required: true
+ *         type: integer
+ *     responses:
+ *       200:
+ *         description: Successfully deleted from the cart
+ */
+router.delete('/cart/:cart_item_id', db.removeItemFromCart);
 
 module.exports = router;

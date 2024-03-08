@@ -261,6 +261,69 @@ function removeOrder(req, res, next) {
 }
 
 
+// Cart
+function getAllItemsInCart(req, res, next) {
+  db.any('SELECT * FROM cart_items')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all items in the cart'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function addItemToCart(req, res, next) {
+  req.body.quantity = parseInt(req.body.quantity);
+  db.none('INSERT INTO cart_items(product_id, quantity)' +
+      'VALUES(${product_id}, ${quantity})',
+    req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Added item to the cart'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function updateCartItem(req, res, next) {
+  db.none('UPDATE cart_items SET quantity=$1 WHERE cart_item_id=$2',
+    [parseInt(req.body.quantity), parseInt(req.params.cart_item_id)])
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Updated cart item'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function removeItemFromCart(req, res, next) {
+  var cartItemId = parseInt(req.params.cart_item_id);
+  db.result('DELETE FROM cart_items WHERE cart_item_id = $1', cartItemId)
+    .then(function (result) {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Removed ${result.rowCount} item from the cart`
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 
 module.exports = {
   getAllProducts: getAllProducts,
@@ -277,5 +340,9 @@ module.exports = {
   getSingleOrder: getSingleOrder,
   createOrder: createOrder,
   updateOrder: updateOrder,
-  removeOrder: removeOrder
+  removeOrder: removeOrder,
+  getAllItemsInCart: getAllItemsInCart,
+  addItemToCart: addItemToCart,
+  updateCartItem: updateCartItem,
+  removeItemFromCart: removeItemFromCart
 };
