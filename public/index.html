@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login and Registration Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="card" id="login-card">
+    <form action="/login" method="POST">
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+      <button type="button" id="toggle-btn">Don't have an account? Register</button>
+    </form>
+  </div>
+  <div class="card hidden" id="registration-card">
+    <form action="/register" method="POST">
+      <h2>Register</h2>
+      <div class="form-group">
+        <label for="register-name">Name</label>
+        <input type="text" id="register-name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" name="password" required>
+      </div>
+      <button type="submit">Register</button>
+      <button type="button" id="toggle-btn-back">Already have an account? Login</button>
+    </form>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

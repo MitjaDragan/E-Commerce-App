@@ -77,6 +77,7 @@ app.post('/register', async (req, res) => {
     // Insert user into the database
     const query = 'INSERT INTO customers (name, email, password, address) VALUES ($1, $2, $3, $4)';
     await client.query(query, [name, email, hashedPassword, address]);
+    console.log(name, email, hashedPassword, address);
     res.status(201).send('User registered successfully');
   } catch (error) {
       console.error('Error during registration:', error);
