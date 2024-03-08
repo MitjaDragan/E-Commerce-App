@@ -1,19 +1,15 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 const path = require('path');
 const port = 3000;
 const { Client } = require('pg');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var swaggerJSDoc = require('swagger-jsdoc');
-
 var routes = require('./routes/index');
-
-// Middleware to parse JSON data
-app.use(express.json());
-app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // swagger definition
 var swaggerDefinition = {
@@ -51,6 +47,14 @@ client.connect(function(err) {
   if (err) throw err;
   console.log("Connected to database!");
 });
+
+// Middleware to parse JSON data
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes);
 
 // serve swagger
 app.get('/swagger.json', function(req, res) {

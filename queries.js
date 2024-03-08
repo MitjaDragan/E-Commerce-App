@@ -6,9 +6,8 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://localhost:5432/ecommerce';
+var connectionString = 'postgres://postgres:Delta%232023!@localhost:5432/ecommerce';
 var db = pgp(connectionString);
-
 
 //Products
 function getAllProducts(req, res, next) {
